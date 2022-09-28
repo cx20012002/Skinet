@@ -1,3 +1,5 @@
+using Core.Interfaces;
+using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,9 +13,24 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<StoreContext>(x =>
     x.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddScoped<IProductRepository, ProductRepository>();
 
 var app = builder.Build();
+
+using var scope = app.Services.CreateScope();
+
+var context = scope.ServiceProvider.GetRequiredService<StoreContext>();
+var loggerFactory = scope.ServiceProvider.GetRequiredService<ILoggerFactory>();
+
+try
+{
+    await context.Database.MigrateAsync();
+    await StoreContextSeed.SeedAsync(context, loggerFactory);
+}
+catch (Exception ex)
+{
+    loggerFactory.CreateLogger<Program>().LogError(ex.Message);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -28,4 +45,4 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+await app.RunAsync();
