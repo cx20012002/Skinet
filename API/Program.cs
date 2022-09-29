@@ -1,5 +1,4 @@
 using API.Extensions;
-using API.Middleware;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,6 +34,8 @@ app.UseApplicationBuilder();
 app.UseHttpsRedirection();
 
 app.UseStaticFiles();
+
+app.UseCors(x => x.AllowAnyHeader().AllowAnyMethod().WithOrigins("https://localhost:3000"));
 
 app.UseAuthorization();
 
