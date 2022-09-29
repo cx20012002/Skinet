@@ -41,6 +41,8 @@ public class ProductsController : BaseApiController
         var spec = new ProductsWithTypesAndBrandsSpecification(id);
         var product = await _productRepo.GetEntityWithSpec(spec);
 
+        if (product == null) return NotFound();
+
         return _mapper.Map<ProductToReturnDto>(product);
     }
 
