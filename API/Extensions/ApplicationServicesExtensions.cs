@@ -6,6 +6,7 @@ using Infrastructure;
 using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using StackExchange.Redis;
 
 namespace API.Extensions;
 
@@ -17,8 +18,14 @@ public static class ApplicationServicesExtensions
         services.AddDbContext<StoreContext>(x =>
             x.UseSqlite(config.GetConnectionString("DefaultConnection")));
         services.AddScoped<IProductRepository, ProductRepository>();
+        services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddAutoMapper(typeof(MappingProfiles));
+        services.AddSingleton<IConnectionMultiplexer>(c =>
+        {
+            var configuration = ConfigurationOptions.Parse(config.GetConnectionString("Redis"), true);
+            return ConnectionMultiplexer.Connect(configuration);
+        });
         services.Configure<ApiBehaviorOptions>(x =>
         {
             x.InvalidModelStateResponseFactory = context =>
@@ -36,7 +43,7 @@ public static class ApplicationServicesExtensions
                 return new BadRequestObjectResult(errorResponse);
             };
         });
-        
+
         return services;
     }
 
