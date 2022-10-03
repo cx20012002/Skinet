@@ -1,5 +1,6 @@
+using System.Net;
 using System.Text.Json;
-using Microsoft.AspNetCore.Mvc;
+using API.Error;
 
 namespace API.Middleware;
 
@@ -28,12 +29,9 @@ public class ExceptionMiddleware
             context.Response.ContentType = "application/json";
             context.Response.StatusCode = StatusCodes.Status500InternalServerError;
 
-            var response = new ProblemDetails
-            {
-                Status = StatusCodes.Status500InternalServerError,
-                Detail = _env.IsDevelopment() ? ex.StackTrace : null,
-                Title = ex.Message
-            };
+            var response = _env.IsDevelopment()
+                ? new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace)
+                : new ApiException((int)HttpStatusCode.InternalServerError, ex.Message, ex.StackTrace);
 
             var options = new JsonSerializerOptions {PropertyNamingPolicy = JsonNamingPolicy.CamelCase};
 

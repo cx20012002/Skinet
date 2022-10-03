@@ -1,38 +1,59 @@
+using API.Error;
+using Infrastructure.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers;
 
 public class BuggyController : BaseApiController
 {
+    private readonly StoreContext _context;
+
+    public BuggyController(StoreContext context)
+    {
+        _context = context;
+    }
+
     [HttpGet("not-found")]
     public ActionResult GetNotFound()
     {
-        return NotFound();
+        var thing = _context.Products.Find(42);
+
+        if (thing == null)
+        {
+            return NotFound(new ApiResponse(404));
+        }
+
+        return Ok();
     }
 
     [HttpGet("bad-request")]
     public ActionResult GetBadRequest()
     {
-        return BadRequest(new ProblemDetails{Title = "This is a bad request"});
+        return BadRequest(new ApiResponse(400));
+    }
+    
+    [HttpGet("bad-request/{id}")]
+    public ActionResult GetNotFoundRequest(int id)
+    {
+        return Ok();
     }
 
-    [HttpGet("unauthorised")]
-    public ActionResult GetUnauthorised()
+    [HttpGet("testauth")]
+    [Authorize]
+    public ActionResult<string> GetSecretText()
     {
-        return Unauthorized();
+        return "secret stuff";
     }
 
-    [HttpGet("validation-error")]
-    public ActionResult GetValidationError()
-    {
-        ModelState.AddModelError("Problem1", "This is the first error");
-        ModelState.AddModelError("Problem2", "This is the second error");
-        return ValidationProblem();
-    }
 
     [HttpGet("server-error")]
     public ActionResult GetServerError()
     {
-        throw new Exception("This is a server error");
+        var thing = _context.Products.Find(42);
+
+        var thingToReturn = thing.ToString();
+
+        return Ok();
     }
 }
