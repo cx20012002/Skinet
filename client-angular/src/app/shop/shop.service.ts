@@ -4,6 +4,7 @@ import {IPagination} from "../shared/models/pagination";
 import {Observable} from "rxjs";
 import {IBrand} from "../shared/models/brand";
 import {IType} from "../shared/models/type";
+import {IProduct} from "../shared/models/product"
 import {ShopParams} from "../shared/models/shopParams";
 
 @Injectable({
@@ -25,6 +26,10 @@ export class ShopService {
     params = params.append('pageSize', shopParams.pageSize.toString())
 
     return this.http.get<IPagination>(this.baseUrl + 'products', {params});
+  }
+
+  getProduct(id: number): Observable<IProduct> {
+    return this.http.get<IProduct>(this.baseUrl + `products/${id}`);
   }
 
   getBrands(): Observable<IBrand[]> {
