@@ -66,4 +66,6 @@ public class ProductsController : BaseApiController
     {
         return Ok(await _productTypeRepo.ListAllAsync());
     }
+
+   
 }
