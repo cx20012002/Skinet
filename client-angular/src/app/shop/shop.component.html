@@ -2,11 +2,11 @@
   <div class="row">
     <section class="col-3">
       <ng-container *ngIf="types && brands">
-        <h5 class="text-warning ms-3 mt-4 mb-3">Sort</h5>
+        <h5 class="text-success ms-3 mt-4 mb-3">Sort</h5>
         <select class="form-select my-3" (change)="onSortSelected($event)">
           <option *ngFor="let sort of sortOptions" [value]="sort.value">{{sort.name}}</option>
         </select>
-        <h5 class="text-warning ms-3">Brands</h5>
+        <h5 class="text-success ms-3">Brands</h5>
         <ul class="list-group my-3">
           <li class="list-group-item"
               *ngFor="let brand of brands"
@@ -17,7 +17,7 @@
             {{brand.name}}
           </li>
         </ul>
-        <h5 class="text-warning ms-3 my-3">Types</h5>
+        <h5 class="text-success ms-3 my-3">Types</h5>
         <ul class="list-group my-3">
           <li class="list-group-item"
               *ngFor="let type of types"
