@@ -14,5 +14,7 @@ public class MappingProfiles : Profile
             .ForMember(x => x.ProductType, opt => opt.MapFrom(x => x.ProductType.Name))
             .ForMember(x => x.PictureUrl, opt => opt.MapFrom<ProductUrlResolver>());
         CreateMap<Address, AddressDto>().ReverseMap();
+        CreateMap<CustomerBasketDto, CustomerBasket>();
+        CreateMap<BasketItemDto, BasketItem>();
     }
 }
