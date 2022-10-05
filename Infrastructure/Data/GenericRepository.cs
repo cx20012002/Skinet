@@ -1,10 +1,9 @@
 using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
-using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure;
+namespace Infrastructure.Data;
 
 public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
 {

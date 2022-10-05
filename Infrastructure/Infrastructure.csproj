@@ -6,11 +6,15 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.9" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="6.0.9" />
         <PackageReference Include="StackExchange.Redis" Version="2.6.66" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\Core\Core.csproj" />
+    </ItemGroup>
+    <ItemGroup>
+      <Folder Include="Identity\Migrations" />
     </ItemGroup>
 
 </Project>
