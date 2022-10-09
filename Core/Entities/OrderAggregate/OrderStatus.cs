@@ -8,7 +8,7 @@ public enum OrderStatus
     Pending,
     
     [EnumMember(Value = "Payment Received")]
-    PaymentMethod,
+    PaymentReceived,
     
     [EnumMember(Value = "Payment Failed")]
     PaymentFailed

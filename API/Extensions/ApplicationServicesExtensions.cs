@@ -74,6 +74,7 @@ public static class ApplicationServicesExtensions
         services.AddScoped<IBasketRepository, BasketRepository>();
         services.AddScoped<ITokenService, TokenService>();
         services.AddScoped<IOrderService, OrderService>();
+        services.AddScoped<IPaymentService, PaymentService>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
         services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
         services.AddAutoMapper(typeof(MappingProfiles));
