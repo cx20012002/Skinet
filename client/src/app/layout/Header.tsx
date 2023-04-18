@@ -3,7 +3,7 @@ import React from 'react';
 function Header() {
     return (
         <>
-            <div className="flex flex-wrap bg-gray-600 text-white w-screen mb-10">
+            <div className="flex flex-wrap bg-gray-600 text-white w-screen fixed z-10">
                 <nav className="flex justify-between container mx-auto">
                     <div className=" py-2 flex w-full items-center">
                         <a className="text-3xl font-bold font-heading" href="#">
@@ -39,8 +39,6 @@ function Header() {
                     </div>
                 </nav>
             </div>
-
-
         </>
     )
 }
