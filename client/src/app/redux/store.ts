@@ -3,6 +3,7 @@ import {skinetApi} from "./services/skinetApi";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {productSlice} from "./features/productSlice";
 
+
 export const store = configureStore({
     reducer: {
         [skinetApi.reducerPath]: skinetApi.reducer,

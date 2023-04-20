@@ -2,17 +2,18 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import './app/layout/styles.css';
-import App from './app/layout/App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from "react-redux";
 import {store} from "./app/redux/store";
+import {RouterProvider} from "react-router-dom";
+import router from "./app/router/Router";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
     <Provider store={store}>
-        <App/>
+        <RouterProvider router={router}/>
     </Provider>
 );
 

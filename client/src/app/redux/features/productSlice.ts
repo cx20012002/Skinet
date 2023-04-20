@@ -16,7 +16,6 @@ interface ProductState {
     pageNumber: number;
 }
 
-
 const initialState: ProductState =
 {
     data: {} as ProductResult,
